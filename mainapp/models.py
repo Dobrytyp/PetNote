@@ -156,3 +156,6 @@ class VetVisit(models.Model):
 
     def __str__(self):
         return f" {self.visit_owner } {self.date} ma wizytę: {self.address}"
+
+class TestClass(models.Model):
+    text = models.TextField(max_length=128)
