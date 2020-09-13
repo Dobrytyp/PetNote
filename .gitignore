@@ -1,0 +1,7 @@
+# folders
+.vscode
+pet_venv
+gcal_credentials
+
+# files
+*.pyc
