@@ -6,7 +6,12 @@ class PetOwnerForm(ModelForm):
     class Meta:
         model = PetOwner
         fields = ['PetOwner_name', 'PetOwner_birth', 'PetOwner_gender', 'photo']
-
+        labels = {
+            'PetOwner_name': 'Imię',
+            'PetOwner_birth': 'Data Urodzenia',
+            'PetOwner_gender': 'Płeć',
+            'photo': 'Zdjęcie'
+        }
 
 class PetForm(ModelForm):
     class Meta:
@@ -27,3 +32,12 @@ class VetVisitForm(ModelForm):
     class Meta:
         model = VetVisit
         fields = ['visit_owner', 'date', 'address', 'telephone', 'email', 'vetname', 'comments']
+        labels = {
+            'visit_owner': 'Wybierz zwierze',
+            'date': 'Data wizyty',
+            'address': 'Adres',
+            'telephone': 'Telefon',
+            'email': 'email',
+            'vetname': 'Weterynarz',
+            'comments': 'Komentarz'
+        }

@@ -9,6 +9,9 @@
     <title>Document</title>
 </head>
 <body>
+    <h3>
+        Udało się, teraz tylko uzupełnij pare pól aby zakończyć rejestrację
+    </h3>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form|crispy }}
