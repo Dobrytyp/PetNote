@@ -2,6 +2,9 @@
 .vscode
 pet_venv
 gcal_credentials
+venv
+
 
 # files
 *.pyc
+db.sqlite3
