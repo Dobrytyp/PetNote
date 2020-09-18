@@ -24,7 +24,7 @@ class PetForm(ModelForm):
             'pet_gender': 'Płeć',
             'pet_weight': 'Waga',
             'photo': 'Zdjęcie',
-            'pet_species': 'gatunek',
+            'pet_species': 'Gatunek',
         }
 
 
@@ -37,7 +37,7 @@ class VetVisitForm(ModelForm):
             'date': 'Data wizyty',
             'address': 'Adres',
             'telephone': 'Telefon',
-            'email': 'email',
+            'email': 'Email',
             'vetname': 'Weterynarz',
             'comments': 'Komentarz'
         }
