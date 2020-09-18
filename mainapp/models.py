@@ -117,6 +117,7 @@ class MyModel(models.Model):
     class PetSpecies(models.TextChoices):
         DOG = 'Dog', "Pies"
         CAT = 'Cat', "Kot"
+        MOU = 'Mouse', "Mysz"
         UNN = 'Unknown', "Nie Wybrano"
 
 
