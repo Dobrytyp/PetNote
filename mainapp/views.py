@@ -7,6 +7,10 @@ def main(request):
     return render(request, "main.html")
 
 
+def registration(request):
+    return render(request, "registration.html")
+
+
 """Account C.R.U.D."""
 
 

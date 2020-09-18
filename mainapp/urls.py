@@ -1,7 +1,7 @@
 from django.urls import path, include
 
 
-from mainapp.views import all_pets, main, new_account, all_accounts,edit_account, delete_account, new_pet, edit_pet, delete_pet, new_visit, all_visits, edit_visit, delete_visit
+from mainapp.views import all_pets, main, registration, new_account, all_accounts,edit_account, delete_account, new_pet, edit_pet, delete_pet, new_visit, all_visits, edit_visit, delete_visit
 
 
 urlpatterns = [
@@ -21,4 +21,5 @@ urlpatterns = [
     path('all-visits/', all_visits),
     path('edit-visit/<int:id>/', edit_visit),
     path('delete-visit/<int:id>/', delete_visit),
+    path('registration/', registration)
 ]
