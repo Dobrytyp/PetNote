@@ -10,8 +10,11 @@
 </head>
 <body>
     <h3>
-        Udało się, teraz tylko uzupełnij pare pól aby zakończyć rejestrację
+        Udało ci się zalogować,
     </h3>
+    <h4>
+        teraz tylko uzupełnij pare pól aby zakończyć rejestrację
+    </h4>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form|crispy }}

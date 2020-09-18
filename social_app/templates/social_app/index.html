@@ -4,13 +4,12 @@
     <title>Google Registration</title>
   </head>
   <body>
-  <h1>My Google Login Project</h1>
   {% if user.is_authenticated %}
   <p>Welcome, {{ user.username }} !</p>
   <meta http-equiv = "refresh" content = "2; url = http://127.0.0.1:8000/mainapp/new-account/" />
 
   {% else %}
-  <h1>My Google Login Project</h1>
+  <h1>Zaloguj się przy pomocy konta google</h1>
   <a href="{% provider_login_url 'google' %}">Login with Google</a>
   {% endif %}
 
