@@ -126,7 +126,7 @@ class MyModel(models.Model):
 
 
 class PetOwner(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)     # Foreign_Key do usera
+    user = models.ForeignKey(User, on_delete=models.CASCADE)     # Foreign_Key do usera
     PetOwner_name = models.CharField(max_length=64)
     PetOwner_birth = models.DateField()
     PetOwner_gender = models.CharField(max_length=11, choices=MyModel.UserGender.choices,
@@ -162,6 +162,7 @@ class VetVisit(models.Model):
 
     def __str__(self):
         return f" {self.visit_owner } {self.date} ma wizytę: {self.address}"
+
 
 class TestClass(models.Model):
     text = models.TextField(max_length=128)

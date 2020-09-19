@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 from .models import Pet, PetOwner, VetVisit
-
+from django.contrib.auth.models import User
 
 class PetOwnerForm(ModelForm):
     class Meta:
@@ -41,4 +41,15 @@ class VetVisitForm(ModelForm):
             'email': 'Email',
             'vetname': 'Weterynarz',
             'comments': 'Komentarz'
+        }
+
+
+class UserForm(ModelForm):
+    class Meta:
+        model = User
+        fields = ['username', 'password', 'email']
+        labels = {
+            'username': "Podaj imię",
+            'password': "Podaj hasło",
+            'email': "email"
         }

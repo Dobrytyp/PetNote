@@ -7,7 +7,7 @@ from mainapp.views import all_pets, main, registration, new_account, all_account
 urlpatterns = [
     path('main/', main, name='main'),
     # user Crud
-    path('new-account/', new_account),
+    path('new-account/', new_account, name='new-account'),
     path('all-accounts/', all_accounts),
     path('edit-account/<int:id>/', edit_account),
     path('delete-account/<int:id>/', delete_account),

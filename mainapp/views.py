@@ -1,6 +1,7 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import PetOwner, Pet, VetVisit
-from .forms import PetOwnerForm, PetForm, VetVisitForm
+from .forms import PetOwnerForm, PetForm, VetVisitForm, UserForm
 
 
 def main(request):
@@ -8,22 +9,32 @@ def main(request):
 
 
 def registration(request):
-    return render(request, "registration.html")
+    form = UserForm(request.POST or None)
+
+    if form.is_valid():
+        form.save()
+        return redirect('new-account')
+
+    return render(request, "registration.html", {'form': form} )
 
 
 """Account C.R.U.D."""
 
 
 def new_account(request):
-    form = PetOwnerForm(request.POST or None)
-    print(request.user)
-    if form.is_valid():
-        petowner = form.save(commit=False)
-        petowner.user = request.user
-        petowner.save()
-        return redirect('main')
+    if PetOwner.objects.filter(user__id__exact=request.user.id):
+        users = PetOwner.objects.all()
+        return render(request, "all-accounts.html", {'users': users})
+    else:
+        form = PetOwnerForm(request.POST or None)
+        print(request.user)
+        if form.is_valid():
+            petowner = form.save(commit=False)      # zmienna tymczasowa
+            petowner.user = request.user            # podpina user pod PetOwner
+            petowner.save()
+            return redirect('main')
 
-    return render(request, 'new-account.html', {'form': form})
+        return render(request, 'new-account.html', {'form': form})
 
 
 def all_accounts(request):
