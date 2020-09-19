@@ -1,4 +1,8 @@
 from django.db import models
+from django.contrib.auth import get_user_model
+
+
+User = get_user_model()     # Maciek N. 2020-09-19
 
 
 class MyModel(models.Model):
@@ -122,6 +126,7 @@ class MyModel(models.Model):
 
 
 class PetOwner(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)     # Foreign_Key do usera
     PetOwner_name = models.CharField(max_length=64)
     PetOwner_birth = models.DateField()
     PetOwner_gender = models.CharField(max_length=11, choices=MyModel.UserGender.choices,

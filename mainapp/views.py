@@ -16,9 +16,11 @@ def registration(request):
 
 def new_account(request):
     form = PetOwnerForm(request.POST or None)
-
+    print(request.user)
     if form.is_valid():
-        form.save()
+        petowner = form.save(commit=False)
+        petowner.user = request.user
+        petowner.save()
         return redirect('main')
 
     return render(request, 'new-account.html', {'form': form})
