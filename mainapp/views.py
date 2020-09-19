@@ -13,6 +13,13 @@ def registration(request):
     form = UserForm(request.POST or None)
 
     if form.is_valid():
+        send_mail(
+            'Test wysyłki email za pośredncitwem django framework',
+            'To działa',
+            'pythonpetnote@gmail.com',
+            [form.cleaned_data['email']],
+            fail_silently=False,
+        )
         form.save()
         return redirect('new-account')
 

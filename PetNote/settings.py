@@ -145,12 +145,10 @@ LOGIN_REDIRECT_URL = '/mainapp/new-account/'
 
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
-        'SCOPE': [
-            'profile',
-            'email',
-        ],
-        'AUTH_PARAMS': {
-            'access_type': 'online',
+        'APP': {
+            'client_id': '1093529959763-6acofa0qiqlh9k22qoajtq1fhmpu634c.apps.googleusercontent.com',
+            'secret': '2SM17o1eWkNdHA1EnQ0YTCw-',
+            'key': ''
         }
     }
 }
