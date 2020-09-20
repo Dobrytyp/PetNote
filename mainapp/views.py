@@ -31,10 +31,10 @@ def registration(request):
     return render(request, "registration.html", {'form': form})
 
 
-def google_registration(request):
+def google_account(request):
     if PetOwner.objects.filter(user__id__exact=request.user.id):
         users = PetOwner.objects.all()
-        return render(request, "all-accounts.html", {'users': users})
+        return render(request, "main.html", {'users': users})
     else:
         form = PetOwnerForm(request.POST or None)
         print(request.user)
@@ -53,7 +53,7 @@ def google_registration(request):
 def new_account(request, created_user):
     if PetOwner.objects.filter(user__id__exact=request.user.id):
         users = PetOwner.objects.all()
-        return render(request, "all-accounts.html", {'users': users})
+        return render(request, "main.html", {'users': users})
     else:
         print(created_user)
         new_user = User.objects.get(id=created_user)
