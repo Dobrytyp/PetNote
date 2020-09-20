@@ -49,7 +49,7 @@ class UserForm(ModelForm):
         model = User
         fields = ['username', 'password', 'email']
         labels = {
-            'username': "Podaj imię",
+            'username': "Podaj nazwę użytkownika",
             'password': "Podaj hasło",
             'email': "email"
         }

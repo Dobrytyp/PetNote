@@ -7,7 +7,7 @@ from mainapp.views import all_pets, main, google_registration, registration, new
 urlpatterns = [
     path('main/', main, name='main'),
     # user Crud
-    path('new-account/', google_registration, name='google-account-'),
+    path('new-account/', google_registration, name='google-registration-'),
     path('new-account/<int:created_user>', new_account, name='new-account'),
     path('all-accounts/', all_accounts),
     path('edit-account/<int:id>/', edit_account),
