@@ -11,6 +11,10 @@ def main(request):
     return render(request, "main.html")
 
 
+def logout(request):
+    return render(request, "mylogout.html")
+
+
 def registration(request):
     form = UserForm(request.POST or None)
 
