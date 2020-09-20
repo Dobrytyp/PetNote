@@ -4,6 +4,7 @@ from .models import PetOwner, Pet, VetVisit
 from .forms import PetOwnerForm, PetForm, VetVisitForm, UserForm
 from django.core.mail import send_mail
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
 
 def main(request):
@@ -45,6 +46,13 @@ def google_account(request):
             return redirect('main')
 
         return render(request, 'new-account.html', {'form': form})
+
+
+def login_request(request):
+    form = AuthenticationForm()
+    return render(request = request,
+                  template_name="register-login/login.html",
+                  context={"form": form})
 
 
 """Account C.R.U.D."""

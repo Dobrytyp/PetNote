@@ -1,6 +1,8 @@
 from django.forms import ModelForm
 from .models import Pet, PetOwner, VetVisit
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
+from django import forms
 
 
 class PetOwnerForm(ModelForm):
@@ -45,12 +47,12 @@ class VetVisitForm(ModelForm):
         }
 
 
-class UserForm(ModelForm):
+class UserForm(UserCreationForm):
+    username = forms.CharField(label="Nazwa Użytkownika", required=True)
+    password1 = forms.CharField(label="Hasło", widget=forms.PasswordInput)
+    password2 = forms.CharField(label="Powtórz hasło", widget=forms.PasswordInput)
+
     class Meta:
         model = User
-        fields = ['username', 'password', 'email']
-        labels = {
-            'username': "Podaj nazwę użytkownika",
-            'password': "Podaj hasło",
-            'email': "email"
-        }
+        fields = ['username', 'password1', 'password2', 'email']
+

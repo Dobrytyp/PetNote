@@ -1,11 +1,13 @@
 from django.urls import path, include
 
 
-from mainapp.views import all_pets, main, google_account, registration, new_account, all_accounts,edit_account, delete_account, new_pet, edit_pet, delete_pet, new_visit, all_visits, edit_visit, delete_visit
+from mainapp.views import login_request, all_pets, main, google_account, registration, new_account, all_accounts,edit_account, delete_account, new_pet, edit_pet, delete_pet, new_visit, all_visits, edit_visit, delete_visit
 
 
 urlpatterns = [
     path('main/', main, name='main'),
+    # path("login/", login_request, name="login"),
+    path('', include('django.contrib.auth.urls')),
     # user Crud
     path('new-account/', google_account, name='google-account'),
     path('new-account/<int:created_user>', new_account, name='new-account'),

@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'PetNote',
     'logapp',
     'mainapp',
-    'gcal',
     'crispy_forms',
     'django.contrib.sites',   # <--
     'social_app',   # <--
@@ -142,7 +141,6 @@ AUTHENTICATION_BACKENDS = (
 SITE_ID = 3
 SOCIALACCOUNT_QUERY_EMAIL = True
 LOGIN_REDIRECT_URL = '/mainapp/new-account/'
-
 
 
 SOCIALACCOUNT_PROVIDERS = {

@@ -20,11 +20,9 @@ from django.conf.urls.static import static
 from django.views.generic import TemplateView
 
 
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('mainapp/', include('mainapp.urls')),
-    path('gcal/', include('gcal.urls')),
     path('accounts/', include('allauth.urls')),
     path('login/', TemplateView.as_view(template_name='social_app/index.html'))
 ]
