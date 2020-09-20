@@ -50,8 +50,8 @@ def google_account(request):
 
 def login_request(request):
     form = AuthenticationForm()
-    return render(request = request,
-                  template_name="register-login/login.html",
+    return render(request=request,
+                  template_name="registration/login.html",
                   context={"form": form})
 
 

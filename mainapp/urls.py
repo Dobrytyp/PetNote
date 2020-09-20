@@ -5,9 +5,10 @@ from mainapp.views import login_request, all_pets, main, google_account, registr
 
 
 urlpatterns = [
+    # login and registration
     path('main/', main, name='main'),
-    # path("login/", login_request, name="login"),
     path('', include('django.contrib.auth.urls')),
+    path('registration/', registration),
     # user Crud
     path('new-account/', google_account, name='google-account'),
     path('new-account/<int:created_user>', new_account, name='new-account'),
@@ -24,5 +25,5 @@ urlpatterns = [
     path('all-visits/', all_visits),
     path('edit-visit/<int:id>/', edit_visit),
     path('delete-visit/<int:id>/', delete_visit),
-    path('registration/', registration)
+
 ]
