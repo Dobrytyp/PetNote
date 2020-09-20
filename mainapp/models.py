@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth import get_user_model
 
 
-User = get_user_model()     # Maciek N. 2020-09-19
+User = get_user_model()     # Maciek N. 2020-09-19 AnonymusUser
 
 
 class MyModel(models.Model):
