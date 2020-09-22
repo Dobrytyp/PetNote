@@ -5,6 +5,28 @@
     <title>Title</title>
 </head>
 <body>
-    <h1>Dupa!</h1>
+     {% if user_pets|length == 0 %}
+        <h2>Brak zwierząt w bazie</h2>
+    {% else %}
+        <h2>Ilość zwierząt w bazie: {{ user_pets | length }}</h2>
+    <table>
+    <tr>
+        <TD>Imię</TD>
+        <TD>Data urodzenia</TD>
+        <TD>Waga</TD>
+        <TD>Płeć</TD>
+        <TD>Gatunek</TD>
+    </tr>
+    {% for item in user_pets %}
+    <TR>
+        <TD>{{ item.pet_name }}</TD>
+       <TD> {{ item.pet_birth }}</TD>
+       <TD> {{ item.pet_weight }}</TD>
+       <TD> {{ item.pet_gender }}</TD>
+       <TD> {{ item.pet_species }}</TD>
+    </TR>
+    {% endfor %}
+    </table>
+    {% endif %}
 </body>
 </html>

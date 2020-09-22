@@ -1,18 +1,48 @@
+from django.core.mail import send_mail
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import PetOwner, Pet, VetVisit
 from .forms import PetOwnerForm, PetForm, VetVisitForm, UserForm
-from django.core.mail import send_mail
-from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
 
 def main(request):
     return render(request, "main.html")
 
 
+def mypage(request):
+    user_id = request.user.id
+    pet_owner = PetOwner.objects.filter(user_id=user_id).values()
+    user_pets = Pet.objects.filter(pet_owner_id=pet_owner[0]['id'])
+    args = {'user_id': user_id, 'user_pets': user_pets}
+    return render(request, "mypage.html", args)
+
+
 def logout(request):
     return render(request, "mylogout.html")
+
+
+# def registration(request):
+#     form = UserForm(request.POST or None)
+
+    # if form.is_valid():
+    #     send_mail(
+    #         'Aktywacja Aplikacji PetNote',
+    #         'To działa',
+    #         'pythonpetnote@gmail.com',
+    #         [form.cleaned_data['email']],
+    #         fail_silently=False,
+    #     )
+    #     new_user = form.save()
+    #     print(new_user)
+    #     # created_user = User.objects.all()
+    #     created_user2 = User.objects.get(email=new_user.email)
+    #     created_user = created_user2.id
+    #     return redirect('new-account', created_user)
+    #
+    # return render(request, "registration.html", {'form': form})
 
 
 def registration(request):
@@ -22,7 +52,7 @@ def registration(request):
 
         temp_email = request.POST.get('email')
         print(temp_email)
-        temp_db_user = User.objects.get(email=temp_email)
+        temp_db_user = User.objects.filter(email=temp_email).first()
         print(temp_db_user)
 
         if temp_db_user:            #sprawdzenie email czy istnieje w DB
@@ -41,11 +71,16 @@ def registration(request):
             print(new_user)
             # created_user = User.objects.all()
             created_user2 = User.objects.get(email=new_user.email)
-
             created_user = created_user2.id
+
+            # username = form.cleaned_data.get('username')
+            # password = form.cleaned_data.get('password1')
+            # user = auth_authenticate(username=username, password=password)
+            # auth_login(request, user)
+
             return redirect('new-account', created_user)
         else:
-            return redirect('main')
+            return render(request, "registration.html", {'form': form})
 
     else:
         return render(request, "registration.html", {'form': form})
@@ -91,15 +126,10 @@ def new_account(request, created_user):
             petowner = form.save(commit=False)      # zmienna tymczasowa
             petowner.user = new_user            # podpina user pod PetOwner
             petowner.save()
-            return redirect('mypage')
+            return redirect('/mainapp/login/')
 
         return render(request, 'new-account.html', {'form': form})
 
-
-def mypage(request):
-    test = request.user.id
-    print(test)
-    return render(request, "mypage.html", {})
 
 def all_accounts(request):
     users = PetOwner.objects.all()
