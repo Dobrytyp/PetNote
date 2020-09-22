@@ -18,28 +18,44 @@ def logout(request):
 def registration(request):
     form = UserForm(request.POST or None)
 
-    if form.is_valid():
-        send_mail(
-            'Aktywacja Aplikacji PetNote',
-            'To działa',
-            'pythonpetnote@gmail.com',
-            [form.cleaned_data['email']],
-            fail_silently=False,
-        )
-        new_user = form.save()
-        print(new_user)
-        # created_user = User.objects.all()
-        created_user2 = User.objects.get(email=new_user.email)
-        created_user = created_user2.id
-        return redirect('new-account', created_user)
+    if request.method == 'POST':
 
-    return render(request, "registration.html", {'form': form})
+        temp_email = request.POST.get('email')
+        print(temp_email)
+        temp_db_user = User.objects.get(email=temp_email)
+        print(temp_db_user)
+
+        if temp_db_user:            #sprawdzenie email czy istnieje w DB
+            return redirect('main')
+
+        if form.is_valid():
+            send_mail(
+                'Aktywacja Aplikacji PetNote',
+                'To działa',
+                'pythonpetnote@gmail.com',
+                [form.cleaned_data['email']],
+                fail_silently=False,
+            )
+
+            new_user = form.save()
+            print(new_user)
+            # created_user = User.objects.all()
+            created_user2 = User.objects.get(email=new_user.email)
+
+            created_user = created_user2.id
+            return redirect('new-account', created_user)
+        else:
+            return redirect('main')
+
+    else:
+        return render(request, "registration.html", {'form': form})
 
 
 def google_account(request):
     if PetOwner.objects.filter(user__id__exact=request.user.id):
         users = PetOwner.objects.all()
-        return render(request, "main.html", {'users': users})
+        # return render(request, "mypage.html", {'users': users})
+        return redirect('mypage')
     else:
         form = PetOwnerForm(request.POST or None)
         print(request.user)
@@ -47,7 +63,7 @@ def google_account(request):
             petowner = form.save(commit=False)  # zmienna tymczasowa
             petowner.user = request.user  # podpina user pod PetOwner
             petowner.save()
-            return redirect('main')
+            return redirect('mypage')
 
         return render(request, 'new-account.html', {'form': form})
 
@@ -75,10 +91,15 @@ def new_account(request, created_user):
             petowner = form.save(commit=False)      # zmienna tymczasowa
             petowner.user = new_user            # podpina user pod PetOwner
             petowner.save()
-            return redirect('main')
+            return redirect('mypage')
 
         return render(request, 'new-account.html', {'form': form})
 
+
+def mypage(request):
+    test = request.user.id
+    print(test)
+    return render(request, "mypage.html", {})
 
 def all_accounts(request):
     users = PetOwner.objects.all()
