@@ -16,33 +16,13 @@ def mypage(request):
     user_id = request.user.id
     pet_owner = PetOwner.objects.filter(user_id=user_id).values()
     user_pets = Pet.objects.filter(pet_owner_id=pet_owner[0]['id'])
-    args = {'user_id': user_id, 'user_pets': user_pets}
+    pet_visit = VetVisit.objects.all()
+    args = {'user_id': user_id, 'user_pets': user_pets, 'pet_visit': pet_visit}
     return render(request, "mypage.html", args)
 
 
 def logout(request):
     return render(request, "mylogout.html")
-
-
-# def registration(request):
-#     form = UserForm(request.POST or None)
-
-    # if form.is_valid():
-    #     send_mail(
-    #         'Aktywacja Aplikacji PetNote',
-    #         'To działa',
-    #         'pythonpetnote@gmail.com',
-    #         [form.cleaned_data['email']],
-    #         fail_silently=False,
-    #     )
-    #     new_user = form.save()
-    #     print(new_user)
-    #     # created_user = User.objects.all()
-    #     created_user2 = User.objects.get(email=new_user.email)
-    #     created_user = created_user2.id
-    #     return redirect('new-account', created_user)
-    #
-    # return render(request, "registration.html", {'form': form})
 
 
 def registration(request):
@@ -56,8 +36,7 @@ def registration(request):
         print(temp_db_user)
 
         if temp_db_user:            #sprawdzenie email czy istnieje w DB
-            return redirect('main')
-
+            return redirect('/mainapp/login/')
         if form.is_valid():
             send_mail(
                 'Aktywacja Aplikacji PetNote',
@@ -69,14 +48,8 @@ def registration(request):
 
             new_user = form.save()
             print(new_user)
-            # created_user = User.objects.all()
             created_user2 = User.objects.get(email=new_user.email)
             created_user = created_user2.id
-
-            # username = form.cleaned_data.get('username')
-            # password = form.cleaned_data.get('password1')
-            # user = auth_authenticate(username=username, password=password)
-            # auth_login(request, user)
 
             return redirect('new-account', created_user)
         else:
