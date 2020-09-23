@@ -10,11 +10,11 @@ from .forms import PetOwnerForm, PetForm, VetVisitForm, UserForm, LoggedPetForm
 """Core"""
 
 
-def main(request):
+def main(request):                                                  # Strona Główna
     return render(request, "main.html")
 
 
-def mypage(request):
+def mypage(request):                                                # Główny widok użytkownika po zalogowaniu
     user_id = request.user.id
     pet_owner = PetOwner.objects.filter(user_id=user_id).values()
     user_pets = Pet.objects.filter(pet_owner_id=pet_owner[0]['id'])
@@ -23,7 +23,7 @@ def mypage(request):
     return render(request, "mypage.html", args)
 
 
-def logout(request):
+def logout(request):                                                # wylogowanie
     return render(request, "mylogout.html")
 
 
@@ -38,7 +38,7 @@ def registration(request):                                          # rejestracj
         temp_email = request.POST.get('email')
         temp_db_user = User.objects.filter(email=temp_email).first()
 
-        if temp_db_user:                                            # sprawdzenie email czy istnieje w DB
+        if temp_db_user:                                            # sprawdzenie czy email istnieje w DB
             return redirect('/mainapp/login/')                      # jeśli tak, przekierowani do strony logowania
         if form.is_valid():                                         # sprawdzenie czy forma jest poprawna
             send_mail(                                              # wysyłka email
@@ -50,7 +50,7 @@ def registration(request):                                          # rejestracj
             )
 
             new_user = form.save()
-            created_user2 = User.objects.get(email=new_user.email)  # wyciągnięcie usera po emaily
+            created_user2 = User.objects.get(email=new_user.email)  # wyciągnięcie usera po emailu
             created_user = created_user2.id                         # wyciągnięcie jego id
 
             return redirect('new-account', created_user)
@@ -61,7 +61,7 @@ def registration(request):                                          # rejestracj
         return render(request, "registration.html", {'form': form})
 
 
-def google_account(request):                                        # rejestracja PetOwner przez Google
+def google_account(request):                                        # rejestracja PetOwner dla Usera przez Google
     if PetOwner.objects.filter(user__id__exact=request.user.id):
         users = PetOwner.objects.all()
         # return render(request, "mypage.html", {'users': users})
@@ -73,12 +73,12 @@ def google_account(request):                                        # rejestracj
             petowner = form.save(commit=False)                      # zmienna tymczasowa
             petowner.user = request.user                            # podpina user pod PetOwner
             petowner.save()
-            return redirect('mypage')                               # google od razu loguje
+            return redirect('mypage')                               # rejestracja przez google nie wymaga juŻ logowania
 
         return render(request, 'new-account.html', {'form': form})
 
 
-def new_account(request, created_user):                              # rejestracja PetOwner
+def new_account(request, created_user):                             # rejestracja PetOwner dla Usera
     if PetOwner.objects.filter(user__id__exact=request.user.id):
         users = PetOwner.objects.all()
         return render(request, "main.html", {'users': users})
@@ -91,7 +91,7 @@ def new_account(request, created_user):                              # rejestrac
             petowner = form.save(commit=False)                      # zmienna tymczasowa
             petowner.user = new_user                                # podpina user pod PetOwner
             petowner.save()
-            return redirect('/mainapp/login/')                      # logowanie
+            return redirect('/mainapp/login/')                      # przekierowanie do logowanie
 
         return render(request, 'new-account.html', {'form': form})
 
