@@ -5,7 +5,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import PetOwner, Pet, VetVisit
-from .forms import PetOwnerForm, PetForm, VetVisitForm, UserForm
+from .forms import PetOwnerForm, PetForm, VetVisitForm, UserForm, LoggedPetForm
 
 
 def main(request):
@@ -23,6 +23,9 @@ def mypage(request):
 
 def logout(request):
     return render(request, "mylogout.html")
+
+
+"""Rejestracja i logowanie"""
 
 
 def registration(request):
@@ -168,17 +171,27 @@ def delete_pet(request, id):
     return render(request, 'delete-pet.html', {'delete': delete})
 
 
-"""Loged owner C.R.U.D."""
+"""Logged owner C.R.U.D."""
 
 
-def logged_new_pet(request, id):
-    form = PetForm(request.POST or None)
+def logged_new_pet(request):
+
+    form = LoggedPetForm(request.POST or None)
 
     if form.is_valid():
-        form.save()
-        return redirect('main')
+        pet = form.save(commit=False)
+        print('request.user.id', request.user.id)
+        temp = PetOwner.objects.get(user_id=request.user.id)
+        print('PetUser:', temp)
+        pet.pet_owner = temp
+        pet.save()
+        return redirect('mypage')
 
-    return render(request, 'new-pet.html', {'form': form})
+    # petowner = form.save(commit=False)  # zmienna tymczasowa
+    # petowner.user = new_user  # podpina user pod PetOwner
+    # petowner.save()
+
+    return render(request, 'logged-new-pet.html', {'form': form})
 
 
 """Visit C.R.U.D."""

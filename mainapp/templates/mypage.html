@@ -8,6 +8,9 @@
     <form action="/mainapp/logout/">
         <input type="submit" value="Wyloguj się            " />
     </form>
+    <form action="/mainapp/logged-new-pet/">
+        <input type="submit" value="Dodaj swojego zwierzaka" />
+    </form>
      {% if user_pets|length == 0 %}
         <h2>Brak zwierząt w bazie</h2>
     {% else %}
