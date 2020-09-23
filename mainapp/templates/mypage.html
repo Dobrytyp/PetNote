@@ -25,6 +25,7 @@
         <TD>Płeć</TD>
         <TD>Gatunek</TD>
         <TD>Edytuj</TD>
+        <TD>Usuń konto zwierzaka</TD>
     </tr>
     {% for item in user_pets %}
     <TR>
@@ -34,6 +35,7 @@
         <TD> {{ item.pet_gender }}</TD>
         <TD> {{ item.pet_species }}</TD>
         <TD><a href='/mainapp/logged-new-pet/{{ item.id }}/'>Edytuj</a></TD>
+        <TD><a href='/mainapp/logged-delete-pet/{{ item.id }}/'>Usuń</a></TD>
     </TR>
     {% endfor %}
     </table>

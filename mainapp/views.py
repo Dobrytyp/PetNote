@@ -173,7 +173,7 @@ def delete_pet(request, id):
     return render(request, 'delete-pet.html', {'delete': delete})
 
 
-"""Logged owner C.R.U.D."""
+"""Logged User C.R.U.D."""
 
 
 def logged_new_pet(request):
@@ -202,6 +202,16 @@ def logged_edit_pet(request, id):
         return redirect('mypage')
 
     return render(request, 'logged-new-pet.html', {'id': id, 'form': form})
+
+
+def logged_delete_pet(request, id):
+    delete = get_object_or_404(Pet, pk=id)
+
+    if request.method == "POST":
+        delete.delete()
+        return redirect('mypage')
+
+    return render(request, 'delete-pet.html', {'id': id, 'delete': delete})
 
 
 """Visit C.R.U.D."""
