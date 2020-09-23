@@ -32,6 +32,20 @@ class PetForm(ModelForm):
         }
 
 
+class LoggedPetForm(ModelForm):
+    class Meta:
+        model = Pet
+        fields = ['pet_name', 'pet_birth', 'pet_gender', 'pet_weight', 'photo', 'pet_species']
+        labels = {
+            'pet_name': 'Imie zwierzęcia',
+            'pet_birth': 'Data urodzenia',
+            'pet_gender': 'Płeć',
+            'pet_weight': 'Waga',
+            'photo': 'Zdjęcie',
+            'pet_species': 'Gatunek',
+        }
+
+
 class VetVisitForm(ModelForm):
     class Meta:
         model = VetVisit
