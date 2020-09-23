@@ -8,6 +8,9 @@
     <form action="/mainapp/logout/">
         <input type="submit" value="Wyloguj się            " />
     </form>
+    <form action="/mainapp/logged-new-pet/">
+        <input type="submit" value="Dodaj swojego zwierzaka" />
+    </form>
      {% if user_pets|length == 0 %}
         <h2>Brak zwierząt w bazie</h2>
     {% else %}
@@ -31,26 +34,26 @@
     {% endfor %}
     </table>
     <p></p>
-    <table>
-    <tr>
-        <TD>Data Wizyty</TD>
-        <TD>Adres</TD>
-        <TD>Telefon</TD>
-        <TD>email</TD>
-        <TD>Weterynarz</TD>
-        <TD>Uwagi</TD>
-    </tr>
-    {% for item in pet_visit %}
-    <TR>
-        <TD>{{ item.date }}</TD>
-        <TD> {{ item.pet_address }}</TD>
-        <TD> {{ item.telephone }}</TD>
-        <TD> {{ item.email }}</TD>
-        <TD> {{ item.vetname }}</TD>
-        <TD> {{ item.comments }}</TD>
-    </TR>
-    {% endfor %}
-    </table>
+<!--    <table>-->
+<!--    <tr>-->
+<!--        <TD>Data Wizyty</TD>-->
+<!--        <TD>Adres</TD>-->
+<!--        <TD>Telefon</TD>-->
+<!--        <TD>email</TD>-->
+<!--        <TD>Weterynarz</TD>-->
+<!--        <TD>Uwagi</TD>-->
+<!--    </tr>-->
+<!--    {% for item in pet_visit %}-->
+<!--    <TR>-->
+<!--        <TD>{{ item.date }}</TD>-->
+<!--        <TD> {{ item.pet_address }}</TD>-->
+<!--        <TD> {{ item.telephone }}</TD>-->
+<!--        <TD> {{ item.email }}</TD>-->
+<!--        <TD> {{ item.vetname }}</TD>-->
+<!--        <TD> {{ item.comments }}</TD>-->
+<!--    </TR>-->
+<!--    {% endfor %}-->
+<!--    </table>-->
     {% endif %}
 
 </body>
