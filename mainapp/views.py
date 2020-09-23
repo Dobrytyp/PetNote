@@ -31,14 +31,12 @@ def registration(request):
     if request.method == 'POST':
 
         temp_email = request.POST.get('email')
-        print(temp_email)
         temp_db_user = User.objects.filter(email=temp_email).first()
-        print(temp_db_user)
 
-        if temp_db_user:            #sprawdzenie email czy istnieje w DB
-            return redirect('/mainapp/login/')
-        if form.is_valid():
-            send_mail(
+        if temp_db_user:                        # sprawdzenie email czy istnieje w DB
+            return redirect('/mainapp/login/')  # jeśli tak, przekierowani do strony logowania
+        if form.is_valid():                     # sprawdzenie czy forma jest poprawna
+            send_mail(                          # wysyłka email
                 'Aktywacja Aplikacji PetNote',
                 'To działa',
                 'pythonpetnote@gmail.com',
@@ -47,9 +45,8 @@ def registration(request):
             )
 
             new_user = form.save()
-            print(new_user)
-            created_user2 = User.objects.get(email=new_user.email)
-            created_user = created_user2.id
+            created_user2 = User.objects.get(email=new_user.email)  # wyciągnięcie usera po emaily
+            created_user = created_user2.id                         # wyciągnięcie jego id
 
             return redirect('new-account', created_user)
         else:
@@ -169,6 +166,19 @@ def delete_pet(request, id):
         return redirect('main')
 
     return render(request, 'delete-pet.html', {'delete': delete})
+
+
+"""Loged owner C.R.U.D."""
+
+
+def logged_new_pet(request, id):
+    form = PetForm(request.POST or None)
+
+    if form.is_valid():
+        form.save()
+        return redirect('main')
+
+    return render(request, 'new-pet.html', {'form': form})
 
 
 """Visit C.R.U.D."""
