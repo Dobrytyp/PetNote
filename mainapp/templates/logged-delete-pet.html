@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Usuń konto swojego zwierzaka</title>
+</head>
+<body>
+    <h1>Czy napewno chcesz usunąć Konto?</h1>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Usuń Konto</button>
+    </form>
+</body>
+</html>
