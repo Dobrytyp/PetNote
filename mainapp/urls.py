@@ -10,10 +10,10 @@ urlpatterns = [
     path('', include('django.contrib.auth.urls')),
     path('registration/', registration),
     path('mylogout/', logout),
+    # Logged user
     path('mypage/', mypage, name='mypage'),
-    # Logged pet Crud
     path('logged-new-pet/', logged_new_pet),
-    # user Crud
+    # admin Crud
     path('new-account/', google_account, name='google-account'),
     path('new-account/<int:created_user>', new_account, name='new-account'),
     path('all-accounts/', all_accounts),

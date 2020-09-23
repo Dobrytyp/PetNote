@@ -1,11 +1,13 @@
 from django.core.mail import send_mail
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
+
 from .models import PetOwner, Pet, VetVisit
 from .forms import PetOwnerForm, PetForm, VetVisitForm, UserForm, LoggedPetForm
+
+"""Core"""
 
 
 def main(request):

@@ -19,8 +19,10 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic import TemplateView
 
+from mainapp.views import main
 
 urlpatterns = [
+    path('', main, name='main'),
     path('admin/', admin.site.urls),
     path('mainapp/', include('mainapp.urls')),
     path('accounts/', include('allauth.urls')),
