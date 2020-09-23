@@ -20,22 +20,18 @@
 
     <tr>
         <TD>Imię</TD>
-        <TD>Data urodzenia</TD>
-        <TD>Waga</TD>
-        <TD>Płeć</TD>
         <TD>Gatunek</TD>
         <TD>Edytuj</TD>
         <TD>Usuń konto zwierzaka</TD>
+        <TD>Dodaj wizytę</TD>
     </tr>
     {% for item in user_pets %}
     <TR>
         <TD> {{ item.pet_name }}</TD>
-        <TD> {{ item.pet_birth }}</TD>
-        <TD> {{ item.pet_weight }}</TD>
-        <TD> {{ item.pet_gender }}</TD>
         <TD> {{ item.pet_species }}</TD>
         <TD><a href='/mainapp/logged-new-pet/{{ item.id }}/'>Edytuj</a></TD>
         <TD><a href='/mainapp/logged-delete-pet/{{ item.id }}/'>Usuń</a></TD>
+        <TD><a href='/mainapp/logged-new-visit/'>Dodaj wizytę</a></TD>
     </TR>
     {% endfor %}
     </table>

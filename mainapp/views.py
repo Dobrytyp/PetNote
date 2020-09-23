@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 
 from .models import PetOwner, Pet, VetVisit
-from .forms import PetOwnerForm, PetForm, VetVisitForm, UserForm, LoggedPetForm
+from .forms import PetOwnerForm, PetForm, VetVisitForm, UserForm, LoggedPetForm, LoggedVetVisitForm
 
 """Core"""
 
@@ -182,9 +182,7 @@ def logged_new_pet(request):
 
     if form.is_valid():
         pet = form.save(commit=False)
-        print('request.user.id', request.user.id)
         temp = PetOwner.objects.get(user_id=request.user.id)
-        print('PetUser:', temp)
         pet.pet_owner = temp
         pet.save()
         return redirect('mypage')
@@ -211,7 +209,11 @@ def logged_delete_pet(request, id):
         delete.delete()
         return redirect('mypage')
 
-    return render(request, 'delete-pet.html', {'id': id, 'delete': delete})
+    return render(request, 'logged-delete-pet.html', {'id': id, 'delete': delete})
+
+
+def logged_new_visit(request):
+    pass
 
 
 """Visit C.R.U.D."""
