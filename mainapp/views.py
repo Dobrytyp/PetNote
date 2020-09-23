@@ -30,7 +30,7 @@ def logout(request):
 """Rejestracja i logowanie"""
 
 
-def registration(request):
+def registration(request):                                          # rejestracja usera
     form = UserForm(request.POST or None)
 
     if request.method == 'POST':
@@ -38,10 +38,10 @@ def registration(request):
         temp_email = request.POST.get('email')
         temp_db_user = User.objects.filter(email=temp_email).first()
 
-        if temp_db_user:                        # sprawdzenie email czy istnieje w DB
-            return redirect('/mainapp/login/')  # jeśli tak, przekierowani do strony logowania
-        if form.is_valid():                     # sprawdzenie czy forma jest poprawna
-            send_mail(                          # wysyłka email
+        if temp_db_user:                                            # sprawdzenie email czy istnieje w DB
+            return redirect('/mainapp/login/')                      # jeśli tak, przekierowani do strony logowania
+        if form.is_valid():                                         # sprawdzenie czy forma jest poprawna
+            send_mail(                                              # wysyłka email
                 'Aktywacja Aplikacji PetNote',
                 'To działa',
                 'pythonpetnote@gmail.com',
@@ -61,7 +61,7 @@ def registration(request):
         return render(request, "registration.html", {'form': form})
 
 
-def google_account(request):
+def google_account(request):                                        # rejestracja PetOwner przez Google
     if PetOwner.objects.filter(user__id__exact=request.user.id):
         users = PetOwner.objects.all()
         # return render(request, "mypage.html", {'users': users})
@@ -70,25 +70,15 @@ def google_account(request):
         form = PetOwnerForm(request.POST or None)
         print(request.user)
         if form.is_valid():
-            petowner = form.save(commit=False)  # zmienna tymczasowa
-            petowner.user = request.user  # podpina user pod PetOwner
+            petowner = form.save(commit=False)                      # zmienna tymczasowa
+            petowner.user = request.user                            # podpina user pod PetOwner
             petowner.save()
-            return redirect('mypage')
+            return redirect('mypage')                               # google od razu loguje
 
         return render(request, 'new-account.html', {'form': form})
 
 
-def login_request(request):
-    form = AuthenticationForm()
-    return render(request=request,
-                  template_name="registration/login.html",
-                  context={"form": form})
-
-
-"""Account C.R.U.D."""
-
-
-def new_account(request, created_user):
+def new_account(request, created_user):                              # rejestracja PetOwner
     if PetOwner.objects.filter(user__id__exact=request.user.id):
         users = PetOwner.objects.all()
         return render(request, "main.html", {'users': users})
@@ -98,12 +88,22 @@ def new_account(request, created_user):
         form = PetOwnerForm(request.POST or None)
 
         if form.is_valid():
-            petowner = form.save(commit=False)      # zmienna tymczasowa
-            petowner.user = new_user            # podpina user pod PetOwner
+            petowner = form.save(commit=False)                      # zmienna tymczasowa
+            petowner.user = new_user                                # podpina user pod PetOwner
             petowner.save()
-            return redirect('/mainapp/login/')
+            return redirect('/mainapp/login/')                      # logowanie
 
         return render(request, 'new-account.html', {'form': form})
+
+
+def login_request(request):                                         # logowanie
+    form = AuthenticationForm()
+    return render(request=request,
+                  template_name="registration/login.html",
+                  context={"form": form})
+
+
+"""Admin C.R.U.D."""
 
 
 def all_accounts(request):
@@ -133,7 +133,7 @@ def delete_account(request, id):
     return render(request, 'delete-account.html', {'delete': delete})
 
 
-"""Pet C.R.U.D"""
+"""Admin C.R.U.D"""
 
 
 def new_pet(request):
@@ -188,10 +188,6 @@ def logged_new_pet(request):
         pet.pet_owner = temp
         pet.save()
         return redirect('mypage')
-
-    # petowner = form.save(commit=False)  # zmienna tymczasowa
-    # petowner.user = new_user  # podpina user pod PetOwner
-    # petowner.save()
 
     return render(request, 'logged-new-pet.html', {'form': form})
 
