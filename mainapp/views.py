@@ -213,7 +213,11 @@ def logged_delete_pet(request, id):
 
 
 def logged_new_visit(request):
-    pass
+    form = LoggedVetVisitForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        return redirect('mypage')
+    return render(request, 'logged-new-visit.html', {'form': form})
 
 
 """Visit C.R.U.D."""
