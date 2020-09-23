@@ -46,6 +46,21 @@ class LoggedPetForm(ModelForm):
         }
 
 
+class LoggedVetVisitForm(ModelForm):
+    class Meta:
+        model = VetVisit
+        fields = ['date', 'address', 'telephone', 'email', 'vetname', 'comments']
+        labels = {
+            'visit_owner': 'Wybierz zwierze',
+            'date': 'Data wizyty',
+            'address': 'Adres',
+            'telephone': 'Telefon',
+            'email': 'Email',
+            'vetname': 'Weterynarz',
+            'comments': 'Komentarz'
+        }
+
+
 class VetVisitForm(ModelForm):
     class Meta:
         model = VetVisit
