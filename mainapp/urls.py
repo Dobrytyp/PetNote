@@ -1,7 +1,7 @@
 from django.urls import path, include
 
 
-from mainapp.views import mypage, logout, all_pets, main, logged_new_pet, google_account, registration, new_account, all_accounts,edit_account, delete_account, new_pet, edit_pet, delete_pet, new_visit, all_visits, edit_visit, delete_visit
+from mainapp.views import mypage, logout, all_pets, main, logged_new_pet, logged_edit_pet, google_account, registration, new_account, all_accounts,edit_account, delete_account, new_pet, edit_pet, delete_pet, new_visit, all_visits, edit_visit, delete_visit
 
 
 urlpatterns = [
@@ -13,6 +13,7 @@ urlpatterns = [
     # Logged user
     path('mypage/', mypage, name='mypage'),
     path('logged-new-pet/', logged_new_pet),
+    path('logged-new-pet/<int:id>/', logged_edit_pet),
     # admin Crud
     path('new-account/', google_account, name='google-account'),
     path('new-account/<int:created_user>', new_account, name='new-account'),

@@ -192,6 +192,18 @@ def logged_new_pet(request):
     return render(request, 'logged-new-pet.html', {'form': form})
 
 
+def logged_edit_pet(request, id):
+    edit = get_object_or_404(Pet, pk=id)
+    form = LoggedPetForm(request.POST or None, instance=edit)
+
+    if form.is_valid():
+        form.save()
+        redirect(main)
+        return redirect('mypage')
+
+    return render(request, 'logged-new-pet.html', {'id': id, 'form': form})
+
+
 """Visit C.R.U.D."""
 
 
