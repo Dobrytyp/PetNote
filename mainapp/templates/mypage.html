@@ -31,7 +31,7 @@
         <TD> {{ item.pet_species }}</TD>
         <TD><a href='/mainapp/logged-new-pet/{{ item.id }}/'>Edytuj</a></TD>
         <TD><a href='/mainapp/logged-delete-pet/{{ item.id }}/'>Usuń</a></TD>
-        <TD><a href='/mainapp/logged-new-visit/'>Dodaj wizytę</a></TD>
+        <TD><a href='/mainapp/logged-new-visit/{{ item.id }}'>Dodaj wizytę</a></TD>
     </TR>
     {% endfor %}
     </table>

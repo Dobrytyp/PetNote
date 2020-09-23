@@ -10,11 +10,11 @@ from .forms import PetOwnerForm, PetForm, VetVisitForm, UserForm, LoggedPetForm,
 """Core"""
 
 
-def main(request):                                                  # Strona Główna
+def main(request):  # Strona Główna
     return render(request, "main.html")
 
 
-def mypage(request):                                                # Główny widok użytkownika po zalogowaniu
+def mypage(request):  # Główny widok użytkownika po zalogowaniu
     user_id = request.user.id
     pet_owner = PetOwner.objects.filter(user_id=user_id).values()
     user_pets = Pet.objects.filter(pet_owner_id=pet_owner[0]['id'])
@@ -23,14 +23,14 @@ def mypage(request):                                                # Główny w
     return render(request, "mypage.html", args)
 
 
-def logout(request):                                                # wylogowanie
+def logout(request):  # wylogowanie
     return render(request, "mylogout.html")
 
 
 """Rejestracja i logowanie"""
 
 
-def registration(request):                                          # rejestracja usera
+def registration(request):  # rejestracja usera
     form = UserForm(request.POST or None)
 
     if request.method == 'POST':
@@ -38,10 +38,10 @@ def registration(request):                                          # rejestracj
         temp_email = request.POST.get('email')
         temp_db_user = User.objects.filter(email=temp_email).first()
 
-        if temp_db_user:                                            # sprawdzenie czy email istnieje w DB
-            return redirect('/mainapp/login/')                      # jeśli tak, przekierowani do strony logowania
-        if form.is_valid():                                         # sprawdzenie czy forma jest poprawna
-            send_mail(                                              # wysyłka email
+        if temp_db_user:  # sprawdzenie czy email istnieje w DB
+            return redirect('/mainapp/login/')  # jeśli tak, przekierowani do strony logowania
+        if form.is_valid():  # sprawdzenie czy forma jest poprawna
+            send_mail(  # wysyłka email
                 'Aktywacja Aplikacji PetNote',
                 'To działa',
                 'pythonpetnote@gmail.com',
@@ -51,7 +51,7 @@ def registration(request):                                          # rejestracj
 
             new_user = form.save()
             created_user2 = User.objects.get(email=new_user.email)  # wyciągnięcie usera po emailu
-            created_user = created_user2.id                         # wyciągnięcie jego id
+            created_user = created_user2.id  # wyciągnięcie jego id
 
             return redirect('new-account', created_user)
         else:
@@ -61,7 +61,7 @@ def registration(request):                                          # rejestracj
         return render(request, "registration.html", {'form': form})
 
 
-def google_account(request):                                        # rejestracja PetOwner dla Usera przez Google
+def google_account(request):  # rejestracja PetOwner dla Usera przez Google
     if PetOwner.objects.filter(user__id__exact=request.user.id):
         users = PetOwner.objects.all()
         # return render(request, "mypage.html", {'users': users})
@@ -70,15 +70,15 @@ def google_account(request):                                        # rejestracj
         form = PetOwnerForm(request.POST or None)
         print(request.user)
         if form.is_valid():
-            petowner = form.save(commit=False)                      # zmienna tymczasowa
-            petowner.user = request.user                            # podpina user pod PetOwner
+            petowner = form.save(commit=False)  # zmienna tymczasowa
+            petowner.user = request.user  # podpina user pod PetOwner
             petowner.save()
-            return redirect('mypage')                               # rejestracja przez google nie wymaga juŻ logowania
+            return redirect('mypage')  # rejestracja przez google nie wymaga juŻ logowania
 
         return render(request, 'new-account.html', {'form': form})
 
 
-def new_account(request, created_user):                             # rejestracja PetOwner dla Usera
+def new_account(request, created_user):  # rejestracja PetOwner dla Usera
     if PetOwner.objects.filter(user__id__exact=request.user.id):
         users = PetOwner.objects.all()
         return render(request, "main.html", {'users': users})
@@ -88,20 +88,76 @@ def new_account(request, created_user):                             # rejestracj
         form = PetOwnerForm(request.POST or None)
 
         if form.is_valid():
-            petowner = form.save(commit=False)                      # zmienna tymczasowa
-            petowner.user = new_user                                # podpina user pod PetOwner
+            petowner = form.save(commit=False)  # zmienna tymczasowa
+            petowner.user = new_user  # podpina user pod PetOwner
             petowner.save()
-            return redirect('/mainapp/login/')                      # przekierowanie do logowanie
+            return redirect('/mainapp/login/')  # przekierowanie do logowanie
 
         return render(request, 'new-account.html', {'form': form})
 
 
-def login_request(request):                                         # logowanie
+def login_request(request):  # logowanie
     form = AuthenticationForm()
     return render(request=request,
                   template_name="registration/login.html",
                   context={"form": form})
 
+
+"""Logged User Pet C.R.U.D."""
+
+
+def logged_new_pet(request):
+    form = LoggedPetForm(request.POST or None)
+
+    if form.is_valid():
+        pet = form.save(commit=False)
+        temp = PetOwner.objects.get(user_id=request.user.id)
+        pet.pet_owner = temp
+        pet.save()
+        return redirect('mypage')
+
+    return render(request, 'logged-new-pet.html', {'form': form})
+
+
+def logged_edit_pet(request, id):
+    edit = get_object_or_404(Pet, pk=id)
+    form = LoggedPetForm(request.POST or None, instance=edit)
+
+    if form.is_valid():
+        form.save()
+        redirect(main)
+        return redirect('mypage')
+
+    return render(request, 'logged-new-pet.html', {'id': id, 'form': form})
+
+
+def logged_delete_pet(request, id):
+    delete = get_object_or_404(Pet, pk=id)
+
+    if request.method == "POST":
+        delete.delete()
+        return redirect('mypage')
+
+    return render(request, 'logged-delete-pet.html', {'id': id, 'delete': delete})
+
+
+"""Logged User Pet C.R.U.D."""
+
+
+def logged_new_visit(request, id):
+    form = LoggedVetVisitForm(request.POST or None)
+    if form.is_valid():
+        print(id)
+        visit = form.save(commit=False)
+        temp = Pet.objects.get(id=id)
+        print(temp)
+        visit.visit_owner = temp
+        visit.save()
+        return redirect('mypage')
+    return render(request, 'logged-new-visit.html', {'form': form})
+
+
+"""""""""""""""""""""""""""Admin C.R.U.D."""""""""""""""""""""""""""""""""
 
 """Admin C.R.U.D."""
 
@@ -133,7 +189,7 @@ def delete_account(request, id):
     return render(request, 'delete-account.html', {'delete': delete})
 
 
-"""Admin C.R.U.D"""
+"""Admin Pet C.R.U.D"""
 
 
 def new_pet(request):
@@ -173,54 +229,7 @@ def delete_pet(request, id):
     return render(request, 'delete-pet.html', {'delete': delete})
 
 
-"""Logged User C.R.U.D."""
-
-
-def logged_new_pet(request):
-
-    form = LoggedPetForm(request.POST or None)
-
-    if form.is_valid():
-        pet = form.save(commit=False)
-        temp = PetOwner.objects.get(user_id=request.user.id)
-        pet.pet_owner = temp
-        pet.save()
-        return redirect('mypage')
-
-    return render(request, 'logged-new-pet.html', {'form': form})
-
-
-def logged_edit_pet(request, id):
-    edit = get_object_or_404(Pet, pk=id)
-    form = LoggedPetForm(request.POST or None, instance=edit)
-
-    if form.is_valid():
-        form.save()
-        redirect(main)
-        return redirect('mypage')
-
-    return render(request, 'logged-new-pet.html', {'id': id, 'form': form})
-
-
-def logged_delete_pet(request, id):
-    delete = get_object_or_404(Pet, pk=id)
-
-    if request.method == "POST":
-        delete.delete()
-        return redirect('mypage')
-
-    return render(request, 'logged-delete-pet.html', {'id': id, 'delete': delete})
-
-
-def logged_new_visit(request):
-    form = LoggedVetVisitForm(request.POST or None)
-    if form.is_valid():
-        form.save()
-        return redirect('mypage')
-    return render(request, 'logged-new-visit.html', {'form': form})
-
-
-"""Visit C.R.U.D."""
+"""Admin Visit C.R.U.D."""
 
 
 def new_visit(request):

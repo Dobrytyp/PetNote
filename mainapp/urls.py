@@ -16,7 +16,7 @@ urlpatterns = [
     path('logged-new-pet/<int:id>/', logged_edit_pet),
     path('logged-delete-pet/<int:id>/', logged_delete_pet),
     path('logged-new-visit/', logged_new_visit),
-    # path('logged-new-visit/<int:id>/', logged_new_visit),
+    path('logged-new-visit/<int:id>/', logged_new_visit),
     # admin Crud
     path('new-account/', google_account, name='google-account'),
     path('new-account/<int:created_user>', new_account, name='new-account'),
