@@ -18,7 +18,14 @@ def mypage(request):  # Główny widok użytkownika po zalogowaniu
     user_id = request.user.id
     pet_owner = PetOwner.objects.filter(user_id=user_id).values()
     user_pets = Pet.objects.filter(pet_owner_id=pet_owner[0]['id'])
-    pet_visit = VetVisit.objects.all()
+
+    user_pets_id = user_pets.filter().values_list('id', flat=True)              # przeszukujemy po id
+    user_pets_id_list = []                                                      # tworzymy listę
+    for elem in user_pets_id:
+        user_pets_id_list.append(elem)
+
+    pet_visit = VetVisit.objects.filter(visit_owner_id__in=user_pets_id_list)   # filtrujemy id po liście
+
     args = {'user_id': user_id, 'user_pets': user_pets, 'pet_visit': pet_visit}
     return render(request, "mypage.html", args)
 
@@ -154,7 +161,6 @@ def logged_new_visit(request, id):
         visit.visit_owner = temp
         visit.save()
         return redirect('mypage')
-
     return render(request, 'logged-new-visit.html', {'form': form})
 
 
