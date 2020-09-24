@@ -18,9 +18,32 @@ def mypage(request):  # Główny widok użytkownika po zalogowaniu
     user_id = request.user.id
     pet_owner = PetOwner.objects.filter(user_id=user_id).values()
     user_pets = Pet.objects.filter(pet_owner_id=pet_owner[0]['id'])
+    print(user_pets)
     pet_visit = VetVisit.objects.all()
     args = {'user_id': user_id, 'user_pets': user_pets, 'pet_visit': pet_visit}
     return render(request, "mypage.html", args)
+
+
+# def mypage(request):  # Główny widok użytkownika po zalogowaniu
+#     user_id = request.user.id
+#     pet_owner = PetOwner.objects.filter(user_id=user_id).values()
+#     user_pets = Pet.objects.filter(pet_owner_id=pet_owner[0]['id']).values()
+#     # print(user_pets)
+#     lst_size = len(user_pets)
+#     lst_pet_visits = []
+#
+#     for i in range(0, lst_size - 1):
+#         pet_visit = VetVisit.objects.filter(visit_owner_id=user_pets[i]['id']).values()
+#         lst_pet_visits.append(pet_visit)
+#
+#     dct_pet_visits = []
+#     for pet in lst_pet_visits:
+#         for visit in pet:
+#             print(visit)
+#             dct_pet_visits.append(visit)
+#
+#     args = {'user_id': user_id, 'user_pets': user_pets, "dct_pet_visits": dct_pet_visits}
+#     return render(request, "mypage.html", args)
 
 
 def logout(request):  # wylogowanie
