@@ -7,6 +7,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import PetOwner, Pet, VetVisit
 from .forms import PetOwnerForm, PetForm, VetVisitForm, UserForm, LoggedPetForm, LoggedVetVisitForm
 
+
 """Core"""
 
 
@@ -19,12 +20,12 @@ def mypage(request):  # Główny widok użytkownika po zalogowaniu
     pet_owner = PetOwner.objects.filter(user_id=user_id).values()
     user_pets = Pet.objects.filter(pet_owner_id=pet_owner[0]['id'])
 
-    user_pets_id = user_pets.filter().values_list('id', flat=True)              # przeszukujemy po id
+    user_pets_id = user_pets.filter().values_list('id', flat=True)              # przeszukujemy po id zwierzęcia
     user_pets_id_list = []                                                      # tworzymy listę
     for elem in user_pets_id:
         user_pets_id_list.append(elem)
 
-    pet_visit = VetVisit.objects.filter(visit_owner_id__in=user_pets_id_list)   # filtrujemy id po liście
+    pet_visit = VetVisit.objects.filter(visit_owner_id__in=user_pets_id_list)   # filtrujemy id wizyty po liście z id zwierzęcia
 
     args = {'user_id': user_id, 'user_pets': user_pets, 'pet_visit': pet_visit}
     return render(request, "mypage.html", args)
@@ -162,6 +163,27 @@ def logged_new_visit(request, id):
         visit.save()
         return redirect('mypage')
     return render(request, 'logged-new-visit.html', {'form': form})
+
+
+def logged_edit_visit(request, id):
+    edit = get_object_or_404(VetVisit, pk=id)
+    form = LoggedVetVisitForm(request.POST or None, instance=edit)
+    if form.is_valid():
+        form.save()
+        redirect(main)
+        return redirect('mypage')
+
+    return render(request, 'logged-edit-visit.html', {'form': form})
+
+
+def logged_delete_visit(request, id):
+    delete = get_object_or_404(VetVisit, pk=id)
+
+    if request.method == "POST":
+        delete.delete()
+        return redirect('mypage')
+
+    return render(request, 'logged-delete-visit.html', {'id': id, 'delete': delete})
 
 
 """""""""""""""""""""""""""Admin C.R.U.D."""""""""""""""""""""""""""""""""
