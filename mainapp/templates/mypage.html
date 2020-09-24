@@ -21,22 +21,20 @@
     <tr>
         <TD>Imię</TD>
         <TD>Gatunek</TD>
+        <TD>Dodaj wizytę</TD>
         <TD>Edytuj</TD>
         <TD>Usuń konto zwierzaka</TD>
-        <TD>Dodaj wizytę</TD>
-        <TD>Umówione wizyty</TD>
     </tr>
     {% for item in user_pets %}
     <TR>
         <TD> {{ item.pet_name }}</TD>
         <TD> {{ item.pet_species }}</TD>
+        <TD><a href='/mainapp/logged-new-visit/{{ item.id }}'>Dodaj wizytę</a></TD>
         <TD><a href='/mainapp/logged-new-pet/{{ item.id }}/'>Edytuj</a></TD>
         <TD><a href='/mainapp/logged-delete-pet/{{ item.id }}/'>Usuń</a></TD>
-        <TD><a href='/mainapp/logged-new-visit/{{ item.id }}'>Dodaj wizytę</a></TD>
-
-        <TD> Do zrobienia</TD>
+        {% endfor %}
     </TR>
-    {% endfor %}
+
     </table>
     <p></p>
     <table>
@@ -48,16 +46,20 @@
         <TD>email</TD>
         <TD>Weterynarz</TD>
         <TD>Uwagi</TD>
+        <TD>Edytuj wizytę</TD>
+        <TD>Usuń wizytę wizytę</TD>
     </tr>
     {% for item in pet_visit %}
     <TR>
         <TD>{{ item.visit_owner }}</TD>
         <TD>{{ item.date }}</TD>
-        <TD> {{ item.pet_address }}</TD>
+        <TD> {{ item.address }}</TD>
         <TD> {{ item.telephone }}</TD>
         <TD> {{ item.email }}</TD>
         <TD> {{ item.vetname }}</TD>
         <TD> {{ item.comments }}</TD>
+        <TD><a href='/mainapp/logged-edit-visit/{{ item.id }}'>Edytuj wizytę</a></TD>
+        <TD><a href='/mainapp/logged-delete-visit/{{ item.id }}'>Usuń wizytę</a></TD>
     </TR>
     {% endfor %}
     </table>

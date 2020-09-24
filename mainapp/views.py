@@ -165,6 +165,27 @@ def logged_new_visit(request, id):
     return render(request, 'logged-new-visit.html', {'form': form})
 
 
+def logged_edit_visit(request, id):
+    edit = get_object_or_404(VetVisit, pk=id)
+    form = LoggedVetVisitForm(request.POST or None, instance=edit)
+    if form.is_valid():
+        form.save()
+        redirect(main)
+        return redirect('mypage')
+
+    return render(request, 'logged-edit-visit.html', {'form': form})
+
+
+def logged_delete_visit(request, id):
+    delete = get_object_or_404(VetVisit, pk=id)
+
+    if request.method == "POST":
+        delete.delete()
+        return redirect('mypage')
+
+    return render(request, 'logged-delete-visit.html', {'id': id, 'delete': delete})
+
+
 """""""""""""""""""""""""""Admin C.R.U.D."""""""""""""""""""""""""""""""""
 
 """Admin C.R.U.D."""
