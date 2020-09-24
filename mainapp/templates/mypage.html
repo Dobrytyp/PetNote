@@ -12,7 +12,7 @@
     <form action="/mainapp/logout/">
         <input type="submit" value="Wyloguj się            " />
     </form>
-     {% if user_pets|length == 0 %}
+    {% if user_pets|length == 0 %}
         <h2>Brak zwierząt w bazie</h2>
     {% else %}
         <h2>Ilość zwierząt w bazie: {{ user_pets | length }}</h2>
@@ -24,6 +24,7 @@
         <TD>Edytuj</TD>
         <TD>Usuń konto zwierzaka</TD>
         <TD>Dodaj wizytę</TD>
+        <TD>Umówione wizyty</TD>
     </tr>
     {% for item in user_pets %}
     <TR>
@@ -32,6 +33,8 @@
         <TD><a href='/mainapp/logged-new-pet/{{ item.id }}/'>Edytuj</a></TD>
         <TD><a href='/mainapp/logged-delete-pet/{{ item.id }}/'>Usuń</a></TD>
         <TD><a href='/mainapp/logged-new-visit/{{ item.id }}'>Dodaj wizytę</a></TD>
+
+        <TD> Do zrobienia</TD>
     </TR>
     {% endfor %}
     </table>
@@ -58,7 +61,7 @@
     </TR>
     {% endfor %}
     </table>
-
+    {% endif %}
 
 </body>
 </html>
