@@ -80,6 +80,7 @@ class UserForm(UserCreationForm):
     username = forms.CharField(label="Nazwa Użytkownika", required=True)
     password1 = forms.CharField(label="Hasło", widget=forms.PasswordInput)
     password2 = forms.CharField(label="Powtórz hasło", widget=forms.PasswordInput)
+    email = forms.EmailField(label="Adres email")
 
     class Meta:
         model = User

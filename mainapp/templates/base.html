@@ -22,13 +22,19 @@
 {% if user.is_authenticated %}
         <ul class="navbar-nav mr-auto">
             <li class="nav-item mr-sm-2">
-                <a class="nav-link" href="{% url 'mypage' %}"> Twoje Zwierzaki</a>
+                <b><a class="nav-link" href="{% url 'mypage' %}"> Twoje Zwierzaki</a></b>
             </li>
         </ul>
 
         <ul class="navbar-nav mr-sm-2">
             <li class="nav-item mr-sm-2">
                 <a class="nav-link" href="/mainapp/logout/"> Wyloguj się</a>
+            </li>
+        </ul>
+
+        <ul class="navbar-nav mr-sm-2">
+            <li class="nav-item mr-sm-2">
+                <a class="nav-link" href="/mainapp/user-settings/{{ user.id }}"> Ustawienia</a>
             </li>
         </ul>
 

@@ -12,8 +12,8 @@ class MyModel(models.Model):
         UNN = 'Unknown', "Nie Wybrano"
 
     class UserGender(models.TextChoices):
-        BOY = "Woman", "Kobieta"
-        GRL = 'Man', "Mężczyzna"
+        BOY = 'Man', "Mężczyzna"
+        GRL = "Woman", "Kobieta"
         UNN = 'Unknown', "Nie Wybrano"
 
     class Weight(models.TextChoices):
@@ -119,10 +119,10 @@ class MyModel(models.Model):
         kg99 = 99, '99 kg'
 
     class PetSpecies(models.TextChoices):
-        DOG = 'Dog', "Pies"
-        CAT = 'Cat', "Kot"
-        MOU = 'Mouse', "Mysz"
-        UNN = 'Unknown', "Nie Wybrano"
+        DOG = "Pies", 'Dog'
+        CAT = "Kot", 'Cat'
+        MOU = "Mysz", 'Mouse'
+        UNN = "Nie Wybrano", 'Unknown'
 
 
 class PetOwner(models.Model):

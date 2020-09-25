@@ -17,6 +17,7 @@ def main(request):  # Strona Główna
 
 def mypage(request):  # Główny widok użytkownika po zalogowaniu
     user_id = request.user.id
+    print(user_id)
     pet_owner = PetOwner.objects.filter(user_id=user_id).values()
     user_pets = Pet.objects.filter(pet_owner_id=pet_owner[0]['id'])
 
@@ -112,6 +113,23 @@ def login_request(request):  # logowanie
 
 
 """Logged User Pet C.R.U.D."""
+
+
+def user_settings(request, id):
+    edit = get_object_or_404(User, pk=id)
+
+    return render(request, 'user-settings.html', {'id': id})
+
+
+
+def user_delete(request, id):
+    delete = get_object_or_404(User, pk=id)
+
+    if request.method == "POST":
+        delete.delete()
+        return redirect('main')
+
+    return render(request, 'user-delete.html', {'id': id, 'delete': delete})
 
 
 def logged_new_pet(request):
