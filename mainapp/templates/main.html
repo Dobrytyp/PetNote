@@ -1,10 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Strona Główna</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block title %}PetApp | main{% endblock %}
+
+{% block content %}
+
+
+
     <h1>Witaj na stronie Pet-Project</h1>
     <h2>Wybierz metodę logowania i rejestracji:</h2>
     <form action="/login/">
@@ -25,5 +26,10 @@
     <form action="/mainapp/logout/">
         <input type="submit" value="Wyloguj się            " />
     </form>
-</body>
-</html>
+
+
+<br><br><br>
+
+
+
+{% endblock %}

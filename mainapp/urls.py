@@ -8,11 +8,11 @@ urlpatterns = [
     # login and registration
     path('main/', main, name='main'),
     path('', include('django.contrib.auth.urls')),
-    path('registration/', registration),
-    path('mylogout/', logout),
+    path('registration/', registration, name='register'),
+    path('mylogout/', logout, name='logout'),
     # Logged user
     path('mypage/', mypage, name='mypage'),
-    path('logged-new-pet/', logged_new_pet),
+    path('logged-new-pet/', logged_new_pet, name='logged-new-pet'),
     path('logged-new-pet/<int:id>/', logged_edit_pet),
     path('logged-delete-pet/<int:id>/', logged_delete_pet),
     path('logged-new-visit/', logged_new_visit),

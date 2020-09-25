@@ -1,22 +1,28 @@
+
+{% extends 'base.html' %}
+
+{% block title %}PetApp | main{% endblock %}
+
+{% block content %}
+
 {% load crispy_forms_tags %}
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Dodaj swoje zwierzę</title>
-</head>
-<body>
+
     <form method="post" enctype="multipart/form-data">
+
         {% csrf_token %}
+
         {{ form|crispy }}
-        <button type="submit">Zakończ rejestrację</button>
+
+        <br>
+
+        <button class="btn btn-danger" type="submit">Dodaj</button>
+
     </form>
-    <p></p>
+
+    <br>
+
     <form action="/mainapp/mypage/">
-        <input type="submit" value="Anuluj             " />
+        <input class="btn btn-danger" type="submit" value="Anuluj" />
     </form>
-</body>
-</html>
+
+{% endblock %}

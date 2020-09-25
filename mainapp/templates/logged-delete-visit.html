@@ -1,18 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Usuń umówioną wizytę</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block title %}PetApp | main{% endblock %}
+
+{% block content %}
+
     <h1>Czy napewno chcesz usunąć wizytę?</h1>
     <form method="post">
         {% csrf_token %}
-        <button type="submit">Tak</button>
+        <button class="btn btn-danger" type="submit">Tak</button>
     </form>
     <p></p>
     <form action="/mainapp/mypage/">
-        <input type="submit" value="Anuluj             " />
+        <input class="btn btn-danger" type="submit" value="Anuluj" />
     </form>
-</body>
-</html>
+
+{% endblock %}
