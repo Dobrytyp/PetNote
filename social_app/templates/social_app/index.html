@@ -1,10 +1,11 @@
+{% extends 'base.html' %}
+
+{% block title %}PetApp | main{% endblock %}
+
+{% block content %}
+
 {% load socialaccount %}
 {% providers_media_js %}
-<html>
-  <head>
-    <title>Google Registration</title>
-  </head>
-  <body>
   {% if user.is_authenticated %}
   <p>Welcome, {{ user.username }} !</p>
   <meta http-equiv = "refresh" content = "2; url = http://127.0.0.1:8000/mainapp/mypage/" />
@@ -14,5 +15,4 @@
   <a href='{% provider_login_url "google" method="oauth2" %}'>Login with Google</a>
   {% endif %}
 
-  </body>
-</html>
+{% endblock %}

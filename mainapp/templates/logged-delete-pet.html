@@ -1,18 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Usuń konto swojego zwierzaka</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block title %}PetApp | main{% endblock %}
+
+{% block content %}
+
     <h1>Czy napewno chcesz usunąć Konto?</h1>
     <form method="post">
         {% csrf_token %}
-        <button type="submit">Usuń Konto</button>
+        <button type="submit">Skasuj zwierzaka</button>
     </form>
     <p></p>
     <form action="/mainapp/mypage/">
         <input type="submit" value="Anuluj             " />
     </form>
-</body>
-</html>
+
+{% endblock %}

@@ -1,17 +1,13 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Usuwanie konta</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block title %}PetApp | main{% endblock %}
+
+{% block content %}
+
     <h1>Czy napewno chcesz usunąć Konto?</h1>
     <form method="post">
         {% csrf_token %}
         <button type="submit">Usuń Konto</button>
     </form>
-</body>
-</html>
+
+{% endblock %}
