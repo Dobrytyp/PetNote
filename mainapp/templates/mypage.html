@@ -11,7 +11,16 @@
     <tr>
        <th scope="col">
             {% if user_pets|length == 0 %}
-               Zwierzaki
+            Aktualnie nie masz dodanych żadnych zwierząt.
+            <p>Możesz dodać konto swojego zwierzecia w każdej chwili
+            <p><th scope="col">
+            <div class="float-left">
+            <form action="/mainapp/logged-new-pet/">
+            <input class="btn btn-danger" type="submit" value="Dodaj zwierzaka">
+            </form>
+            </div>
+            </p>
+        </th>
             {% else %}
                Zwierzaki: {{ user_pets | length }}
        </th>
@@ -19,8 +28,8 @@
             <div class="float-right">
             <form action="/mainapp/logged-new-pet/">
             <input class="btn btn-danger" type="submit" value="Dodaj zwierzaka">
-            </div>
             </form>
+            </div>
         </th>
     </tr>
   </thead>
@@ -34,8 +43,9 @@
         <th scope="col"> </th>
         <th scope="col"> </th>
         <th scope="col">Dodaj wizytę</th>
-        <th scope="col">Edytuj wizytę</th>
-        <th scope="col">Usuń wizytę</th>
+        <th scope="col"> </th>
+        <th scope="col">Edytuj konto zwierzęcia</th>
+        <th scope="col">Usuń konto zwierzęcia</th>
     </tr>
   </thead>
     <tbody>
@@ -51,6 +61,7 @@
             <input class="btn btn-danger" type="submit" value="Dodaj">
             </form>
         </TD>
+        <TD> </TD>
         <TD>
             <form action="/mainapp/logged-new-pet/{{ item.id }}/">
             <input class="btn btn-danger" type="submit" value="Edytuj">
@@ -61,6 +72,7 @@
             <input class="btn btn-danger" type="submit" value="Usuń">
             </form>
         </TD>
+
         {% endfor %}
     </TR>
     </tbody>

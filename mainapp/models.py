@@ -160,6 +160,9 @@ class VetVisit(models.Model):
     vetname = models.CharField(max_length=64, null=True, blank=True)
     comments = models.CharField(max_length=64, null=True, blank=True)
 
+    class Meta:
+        ordering = ["date"]
+
     def __str__(self):
         return f" {self.visit_owner } {self.date} ma wizytę: {self.address}"
 
