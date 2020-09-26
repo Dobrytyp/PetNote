@@ -1,0 +1,28 @@
+
+{% extends 'base.html' %}
+
+{% block title %}PetApp | main{% endblock %}
+
+{% block content %}
+
+{% load crispy_forms_tags %}
+
+    <form method="post" enctype="multipart/form-data">
+
+        {% csrf_token %}
+
+        {{ form|crispy }}
+
+        <br>
+
+        <button class="btn btn-danger" type="submit">Dodaj</button>
+
+    </form>
+
+    <br>
+
+    <form action="/mainapp/mypage/">
+        <input class="btn btn-danger" type="submit" value="Anuluj" />
+    </form>
+
+{% endblock %}

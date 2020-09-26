@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}PetApp | main{% endblock %}
+
+{% block content %}
+
+    {% if users|length == 0 %}
+        <h2>Brak aktywnych kont bazie</h2>
+    {% else %}
+        <h2>Ilość aktywnych kont: {{ users | length }}</h2>
+    <table>
+    <tr>
+        <TD>Imię</TD>
+        <TD>Data urodzenia</TD>
+        <TD>Konto premium</TD>
+        <TD>Płeć</TD>
+        <TD>Zdjęcie</TD>
+    </tr>
+    {% for item in users %}
+    <TR>
+        <TD>{{ item.PetOwner_name }}</TD>
+       <TD> {{ item.PetOwner_birth }}</TD>
+       <TD> {{ item.premium_account }}</TD>
+       <TD> {{ item.PetOwner_gender }}</TD>
+       <TD> {{ item.photo }}</TD>
+    </TR>
+    {% endfor %}
+    </table>
+    {% endif %}
+
+{% endblock %}

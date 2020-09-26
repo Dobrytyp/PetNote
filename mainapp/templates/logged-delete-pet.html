@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}PetApp | main{% endblock %}
+
+{% block content %}
+
+    <h1>Czy napewno chcesz usunąć Konto?</h1>
+    <form method="post">
+        {% csrf_token %}
+        <button class="btn btn-danger" type="submit">Skasuj zwierzaka</button>
+    </form>
+    <p></p>
+    <form action="/mainapp/mypage/">
+        <input class="btn btn-danger" type="submit" value="Anuluj" />
+    </form>
+
+{% endblock %}

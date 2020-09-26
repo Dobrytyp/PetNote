@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}PetApp | main{% endblock %}
+
+    {% if test|length == 0 %}
+        <h2>Brak zwierząt w bazie</h2>
+    {% else %}
+        <h2>Ilość zwierząt w bazie: {{ test | length }}</h2>
+    <table>
+    <tr>
+        <TD>Imię</TD>
+        <TD>Data urodzenia</TD>
+        <TD>Waga</TD>
+        <TD>Płeć</TD>
+        <TD>Gatunek</TD>
+    </tr>
+    {% for item in test %}
+    <TR>
+        <TD>{{ item.pet_name }}</TD>
+       <TD> {{ item.pet_birth }}</TD>
+       <TD> {{ item.pet_weight }}</TD>
+       <TD> {{ item.pet_gender }}</TD>
+       <TD> {{ item.pet_species }}</TD>
+    </TR>
+    {% endfor %}
+    </table>
+    {% endif %}
+
+{% endblock %}

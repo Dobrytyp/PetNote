@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+
+{% block title %}PetApp | main{% endblock %}
+
+{% block content %}
+
+
+    <p></p>
+<table class="table table-borderless">
+  <thead>
+    <tr>
+       <th scope="col">
+            {% if user_pets|length == 0 %}
+            Aktualnie nie masz dodanych żadnych zwierząt.
+            <p>Możesz dodać konto swojego zwierzecia w każdej chwili
+            <p><th scope="col">
+            <div class="float-left">
+            <form action="/mainapp/logged-new-pet/">
+            <input class="btn btn-danger" type="submit" value="Dodaj zwierzaka">
+            </form>
+            </div>
+            </p>
+        </th>
+            {% else %}
+               Witaj {{ user.username }}
+       </th>
+        <th scope="col">
+            <div class="float-right">
+            <form action="/mainapp/logged-new-pet/">
+            <input class="btn btn-danger" type="submit" value="Dodaj zwierzaka">
+            </form>
+            </div>
+        </th>
+    </tr>
+  </thead>
+</table>
+<table class="table table-hover">
+  <thead>
+    <tr>
+        <th scope="col">Imię</th>
+        <th scope="col">Gatunek</th>
+        <th scope="col"> </th>
+        <th scope="col"> </th>
+        <th scope="col"> </th>
+        <th scope="col">Dodaj wizytę</th>
+        <th scope="col"> </th>
+        <th scope="col">Edytuj konto zwierzęcia</th>
+        <th scope="col">Usuń konto zwierzęcia</th>
+    </tr>
+  </thead>
+    <tbody>
+    {% for item in user_pets %}
+    <tr>
+        <TD> {{ item.pet_name }}</TD>
+        <TD> {{ item.pet_species }}</TD>
+        <TD> </TD>
+        <TD> </TD>
+        <TD> </TD>
+        <TD>
+            <form action="/mainapp/logged-new-visit/{{ item.id }}">
+            <input class="btn btn-danger" type="submit" value="Dodaj">
+            </form>
+        </TD>
+        <TD> </TD>
+        <TD>
+            <form action="/mainapp/logged-new-pet/{{ item.id }}/">
+            <input class="btn btn-danger" type="submit" value="Edytuj">
+            </form>
+        </TD>
+        <TD>
+            <form action="/mainapp/logged-delete-pet/{{ item.id }}/">
+            <input class="btn btn-danger" type="submit" value="Usuń">
+            </form>
+        </TD>
+
+        {% endfor %}
+    </TR>
+    </tbody>
+</table>
+
+<br><br>
+<br><br>
+<br><br>
+
+<table class="table table-borderless">
+  <thead>
+    <tr>
+       <th scope="col">
+            Twoje Wizyty
+       </th>
+        <th scope="col">
+        </th>
+    </tr>
+  </thead>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+        <th scope="col">Imię</th>
+        <th scope="col">Data Wizyty</th>
+        <th scope="col">Adres</th>
+        <th scope="col">Telefon</th>
+        <th scope="col">email</th>
+        <th scope="col">Weterynarz</th>
+        <th scope="col">Uwagi</th>
+        <th scope="col">Edytuj wizytę</th>
+        <th scope="col">Usuń wizytę wizytę</th>
+    </tr>
+  </thead>
+    <tbody>
+    {% for item in pet_visit %}
+    <TR>
+        <TD>{{ item.visit_owner }}</TD>
+        <TD>{{ item.date }}</TD>
+        <TD> {{ item.address }}</TD>
+        <TD> {{ item.telephone }}</TD>
+        <TD> {{ item.email }}</TD>
+        <TD> {{ item.vetname }}</TD>
+        <TD> {{ item.comments }}</TD>
+        <TD>
+            <form action="/mainapp/logged-edit-visit/{{ item.id }}">
+            <input class="btn btn-danger" type="submit" value="Edytuj">
+            </form>
+        </TD>
+        <TD>
+            <form action="/mainapp/logged-delete-visit/{{ item.id }}">
+            <input class="btn btn-danger" type="submit" value="Usuń">
+            </form>
+        </TD>
+    </TR>
+    {% endfor %}
+    </tbody>
+</table>
+
+    {% endif %}
+
+
+{% endblock %}
