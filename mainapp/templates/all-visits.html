@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}PetApp | main{% endblock %}
+
+{% block content %}
+
+    {% if visits|length == 0 %}
+        <h2>Brak wizyt w bazie</h2>
+    {% else %}
+        <h2>Ilość wizyt w bazie: {{ visits | length }}</h2>
+    <table>
+    <tr>
+        <TD>Data Wizyty</TD>
+        <TD>Adres wizyty</TD>
+        <TD>Telefon Kontaktowy</TD>
+        <TD>Email</TD>
+        <TD>Weterynarz</TD>
+        <TD>Komentarz</TD>
+    </tr>
+    {% for item in visits %}
+    <TR>
+        <TD> {{ item.date }}</TD>
+        <TD> {{ item.address }}</TD>
+        <TD> {{ item.telephone }}</TD>
+        <TD> {{ item.email }}</TD>
+        <TD> {{ item.vetname }}</TD>
+        <TD> {{ item.comments }}</TD>
+    </TR>
+    {% endfor %}
+    </table>
+    {% endif %}
+
+{% endblock %}
+

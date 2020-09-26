@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}PetApp | main{% endblock %}
+
+{% block content %}
+
+{% load crispy_forms_tags %}
+
+    <h3>
+        Udało ci się zalogować,
+    </h3>
+    <h4>
+        teraz tylko uzupełnij pare pól aby zakończyć rejestrację
+    </h4>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit">Zakończ rejestrację</button>
+    </form>
+    {{ user }}
+{% endblock %}
