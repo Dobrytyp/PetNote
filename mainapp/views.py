@@ -22,6 +22,7 @@ def mypage(request):  # Główny widok użytkownika po zalogowaniu
     user_pets = Pet.objects.filter(pet_owner_id=pet_owner[0]['id'])
 
     user_pets_id = user_pets.filter().values_list('id', flat=True)              # przeszukujemy po id zwierzęcia
+    print(user_pets_id)
     user_pets_id_list = []                                                      # tworzymy listę
     for elem in user_pets_id:
         user_pets_id_list.append(elem)
@@ -59,8 +60,8 @@ def registration(request):  # rejestracja usera
             )
 
             new_user = form.save()
-            created_user2 = User.objects.get(email=new_user.email)  # wyciągnięcie usera po emailu
-            created_user = created_user2.id  # wyciągnięcie jego id
+            get_user_by_email = User.objects.get(email=new_user.email)  # wyciągnięcie usera po emailu
+            created_user = get_user_by_email.id  # wyciągnięcie jego id
 
             return redirect('new-account', created_user)
         else:
@@ -92,7 +93,6 @@ def new_account(request, created_user):  # rejestracja PetOwner dla Usera
         users = PetOwner.objects.all()
         return render(request, "main.html", {'users': users})
     else:
-        print(created_user)
         new_user = User.objects.get(id=created_user)
         form = PetOwnerForm(request.POST or None)
 

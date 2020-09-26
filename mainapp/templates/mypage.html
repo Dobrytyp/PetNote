@@ -22,7 +22,7 @@
             </p>
         </th>
             {% else %}
-               Witaj {{ user.username }}
+               Witaj {{ user.username.capitalize }}
        </th>
         <th scope="col">
             <div class="float-right">
@@ -40,9 +40,8 @@
         <th scope="col">Imię</th>
         <th scope="col">Gatunek</th>
         <th scope="col"> </th>
-        <th scope="col"> </th>
-        <th scope="col"> </th>
         <th scope="col">Dodaj wizytę</th>
+        <th scope="col"> </th>
         <th scope="col"> </th>
         <th scope="col">Edytuj konto zwierzęcia</th>
         <th scope="col">Usuń konto zwierzęcia</th>
@@ -54,13 +53,12 @@
         <TD> {{ item.pet_name }}</TD>
         <TD> {{ item.pet_species }}</TD>
         <TD> </TD>
-        <TD> </TD>
-        <TD> </TD>
         <TD>
             <form action="/mainapp/logged-new-visit/{{ item.id }}">
             <input class="btn btn-danger" type="submit" value="Dodaj">
             </form>
         </TD>
+        <TD> </TD>
         <TD> </TD>
         <TD>
             <form action="/mainapp/logged-new-pet/{{ item.id }}/">

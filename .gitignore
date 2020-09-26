@@ -8,4 +8,4 @@ Nvenv
 # files
 *.pyc
 db.sqlite3
-/mainapp/migrations/0001_initial.py
+
