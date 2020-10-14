@@ -1,0 +1,13 @@
+﻿docker-compose up {-–build}                # tworzenie konternera
+
+sudo chmod 777 /var/run/docker.sock     #autoryzacja
+
+docker ps                               #lista kontenerów
+
+docker run                              #uruchomienie kontenera
+
+docker exec -it [container id] bash     #wejście do kontenera
+
+exit                                    #wyjście z kontenera
+
+
